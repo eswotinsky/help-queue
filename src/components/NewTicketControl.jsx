@@ -1,6 +1,7 @@
 import React from 'react';
 import ConfirmationQuestions from './ConfirmationQuestions';
 import NewTicketForm from './NewTicketForm';
+import PropTypes from 'prop-types';
 
 class NewTicketControl extends React.Component {
 
@@ -34,5 +35,9 @@ class NewTicketControl extends React.Component {
     );
   }
 }
+
+NewTicketControl.propTypes = {
+  onNewTicket: PropTypes.func.isRequired
+};
 
 export default NewTicketControl;
