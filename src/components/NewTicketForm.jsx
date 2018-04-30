@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { v4 } from 'uuid';
 
 function NewTicketForm(props){
   let _names = null;
@@ -13,7 +14,8 @@ function NewTicketForm(props){
     let newTicket = {
       names: _names.value,
       location: _location.value,
-      issue: _issue.value
+      issue: _issue.value,
+      id: v4()
     };
     props.onNewTicket(newTicket);
 
