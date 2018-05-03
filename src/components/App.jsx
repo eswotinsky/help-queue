@@ -5,14 +5,14 @@ import NewTicketControl from './NewTicketControl';
 import Admin from './Admin';
 import Error404 from './Error404';
 import { Switch, Route } from 'react-router-dom';
-import Moment from 'moment';
+import { v4 } from 'uuid';
 
 class App extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {
-      ticketList: [],
+      ticketList: {},
       selectedTicket: null
     },
     this.handleNewTicket = this.handleNewTicket.bind(this);
@@ -27,25 +27,24 @@ class App extends React.Component {
   }
 
   updateTicketElapsedWaitTime() {
-     let newTicketList = this.state.ticketList.slice();
-     newTicketList.forEach((ticket) =>
-       ticket.formattedWaitTime = (ticket.timeOpen).fromNow(true)
-     );
-     this.setState({ticketList: newTicketList})
-   }
-
-  handleNewTicket(ticket){
-    let newTicketList = [];
-    this.state.ticketList.forEach(ticket=>{
-      newTicketList.push(Object.create(ticket));
+    var newTicketList = Object.assign({}, this.state.ticketList);
+    Object.keys(newTicketList).forEach(ticketId => {
+      newTicketList[ticketId].formattedWaitTime = (newTicketList[ticketId].timeOpen).fromNow(true);
     });
-    ticket.formattedWaitTime = (ticket.timeOpen).fromNow(true)
-    newTicketList.push(ticket);
     this.setState({ticketList: newTicketList});
   }
 
-  handleChangingSelectedTicket(ticket){
-    this.setState({selectedTicket: ticket});
+  handleNewTicket(newTicket){
+    var newTicketId = v4();
+    let newTicketList = Object.assign({}, this.state.ticketList, {
+      [newTicketId]: newTicket
+    });
+    newTicketList[newTicketId].formattedWaitTime = newTicketList[newTicketId].timeOpen.fromNow(true);
+    this.setState({ticketList: newTicketList});
+  }
+
+  handleChangingSelectedTicket(ticketId){
+    this.setState({selectedTicket: ticketId});
   }
 
   render(){
