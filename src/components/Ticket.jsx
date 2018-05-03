@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 
 function Ticket(props){
   const ticketInformation =
-  <div>
-    <style jsx>{`
+    <div>
+      <style jsx>{`
         div {
           background-color: ghostwhite;
         }
         h3 {
           color: blue;
         }
-      `}</style>
-    <h3>{props.location} - {props.names}</h3>
-    <h4>{props.formattedWaitTime} ago</h4>
-    <p><em>{props.issue}</em></p>
-    <hr/>
-  </div>;
+        `}</style>
+      <h3>{props.location} - {props.names}</h3>
+      <h4>{props.formattedWaitTime} ago</h4>
+      <hr/>
+    </div>;
 
   if (props.currentRouterPath === '/admin'){
     return (
@@ -24,8 +23,8 @@ function Ticket(props){
         names: props.names,
         location: props.location,
         issue: props.issue,
-        formattedWaitTime: props.formattedWaitTime
-      });}}>
+        formattedWaitTime: props.formattedWaitTime});}
+      }>
         {ticketInformation}
       </div>
     );
